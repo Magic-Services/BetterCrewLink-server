@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import express from 'express';
 import { Server } from 'http';
 import { Server as HttpsServer } from 'https';
@@ -109,12 +111,12 @@ if (!hostname && peerConfig.integratedRelay.enabled) {
 }
 
 app.get('/', (req, res) => {
-	let address = req.protocol + '://' + req.host;
+	let address = req.protocol + '://' + req.hostname;
 	res.render('index', { connectionCount, address, lobbiesCount: allLobbies.size });
 });
 
 app.get('/health', (req, res) => {
-	let address = req.protocol + '://' + req.host;
+	let address = req.protocol + '://' + req.hostname;
 	res.json({
 		uptime: process.uptime(),
 		connectionCount,
